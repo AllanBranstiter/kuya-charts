@@ -4,6 +4,10 @@
   "description": "Backend API for Kuya Charts stock charting application",
   "main": "dist/index.js",
   "type": "module",
+  "engines": {
+    "node": ">=20.0.0",
+    "npm": ">=10.0.0"
+  },
   "scripts": {
     "dev": "tsx watch src/index.ts",
     "build": "tsc",
