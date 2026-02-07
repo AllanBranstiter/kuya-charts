@@ -56,3 +56,63 @@ export interface CacheEntry<T> {
   data: T;
   timestamp: number;
 }
+
+// Stock metadata types for database
+export interface StockMetadata {
+  id?: number;
+  symbol: string;
+  name: string;
+  sector?: string;
+  market_cap?: number;
+  exchange?: string;
+  currency?: string;
+  last_updated?: Date;
+  // Technical metrics (when joined with stock_metrics table)
+  close_price?: number;
+  volume?: number;
+  rsi?: number;
+  price_vs_sma_20?: number;
+  price_vs_sma_50?: number;
+  price_vs_sma_200?: number;
+  volume_spike?: number;
+  avg_volume_20d?: number;
+  metrics_date?: string;
+}
+
+// Stock list query filters
+export interface StockListFilters {
+  sector?: string;
+  minMarketCap?: number;
+  maxMarketCap?: number;
+  minPrice?: number;
+  maxPrice?: number;
+  // Technical filters
+  rsiMin?: number;
+  rsiMax?: number;
+  priceVsSma50?: 'above' | 'below';
+  priceVsSma200?: 'above' | 'below';
+  volumeSpikeMin?: number;
+  limit?: number;
+  offset?: number;
+  page?: number;
+}
+
+// Pagination metadata for API responses
+export interface PaginationMetadata {
+  page: number;
+  limit: number;
+  total: number;
+  totalPages: number;
+  hasNext: boolean;
+  hasPrev: boolean;
+}
+
+// Stock list API response
+export interface StockListResponse {
+  stocks: StockMetadata[];
+  pagination: PaginationMetadata;
+  // Legacy fields for backward compatibility
+  total: number;
+  limit: number;
+  offset: number;
+}

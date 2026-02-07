@@ -1,3 +1,100 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Theme CSS Variables */
+:root[data-theme="light"] {
+  /* Backgrounds */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f3f4f6;
+  --bg-tertiary: #e5e7eb;
+  --bg-hover: #f9fafb;
+  
+  /* Text Colors */
+  --text-primary: #111827;
+  --text-secondary: #6b7280;
+  --text-tertiary: #9ca3af;
+  
+  /* Borders */
+  --border-primary: #e5e7eb;
+  --border-secondary: #d1d5db;
+  --border-focus: #3b82f6;
+  
+  /* Accent Colors */
+  --accent: #3b82f6;
+  --accent-hover: #2563eb;
+  --accent-light: #dbeafe;
+  
+  /* Chart Colors */
+  --chart-bg: #ffffff;
+  --chart-text: #111827;
+  --chart-grid: #e5e7eb;
+  --chart-crosshair: #6b7280;
+  
+  /* Success/Error Colors */
+  --color-success: #10b981;
+  --color-success-bg: #d1fae5;
+  --color-error: #ef4444;
+  --color-error-bg: #fee2e2;
+  --color-warning: #f59e0b;
+  --color-warning-bg: #fef3c7;
+  
+  /* Candlestick Colors */
+  --candle-up: #10b981;
+  --candle-down: #ef4444;
+  --candle-wick: #6b7280;
+}
+
+:root[data-theme="dark"] {
+  /* Backgrounds */
+  --bg-primary: #1a1a1a;
+  --bg-secondary: #2d2d2d;
+  --bg-tertiary: #404040;
+  --bg-hover: #373737;
+  
+  /* Text Colors */
+  --text-primary: #e5e5e5;
+  --text-secondary: #a3a3a3;
+  --text-tertiary: #737373;
+  
+  /* Borders */
+  --border-primary: #404040;
+  --border-secondary: #525252;
+  --border-focus: #60a5fa;
+  
+  /* Accent Colors */
+  --accent: #60a5fa;
+  --accent-hover: #3b82f6;
+  --accent-light: #1e3a8a;
+  
+  /* Chart Colors */
+  --chart-bg: #0a0a0a;
+  --chart-text: #e5e5e5;
+  --chart-grid: #404040;
+  --chart-crosshair: #a3a3a3;
+  
+  /* Success/Error Colors */
+  --color-success: #10b981;
+  --color-success-bg: #064e3b;
+  --color-error: #ef4444;
+  --color-error-bg: #7f1d1d;
+  --color-warning: #f59e0b;
+  --color-warning-bg: #78350f;
+  
+  /* Candlestick Colors */
+  --candle-up: #22c55e;
+  --candle-down: #ef4444;
+  --candle-wick: #a3a3a3;
+}
+
+/* Base styles */
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Smooth transitions for theme changes */
+* {
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}

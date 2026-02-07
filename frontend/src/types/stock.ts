@@ -8,11 +8,21 @@ export interface OHLCVData {
   volume: number;
 }
 
+// Data range metadata
+export interface DataRangeMetadata {
+  dataStartDate: string | null;
+  dataEndDate: string | null;
+  dataPoints: number;
+  hasMoreHistory: boolean;
+}
+
 // API response for daily stock data
 export interface DailyStockResponse {
   symbol: string;
   data: OHLCVData[];
   source: 'cache' | 'api';
+  cached?: boolean;
+  metadata?: DataRangeMetadata;
 }
 
 // API response for intraday stock data
@@ -21,6 +31,8 @@ export interface IntradayStockResponse {
   interval: string;
   data: OHLCVData[];
   source: 'cache' | 'api';
+  cached?: boolean;
+  metadata?: DataRangeMetadata;
 }
 
 // Timeframe options

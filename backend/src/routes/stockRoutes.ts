@@ -1,5 +1,11 @@
 import { Router, Request, Response } from 'express';
-import { fetchDailyData, fetchIntradayData } from '../services/alphaVantageService.js';
+import {
+  fetchDailyData,
+  fetchIntradayData,
+  fetchHistoricalData,
+  filterDataByDateRange,
+  getDataRangeMetadata
+} from '../services/alphaVantageService.js';
 import { cache } from '../utils/cache.js';
 import { stockDataLimiter } from '../middleware/rateLimiter.js';
 import { OHLCVData, IntradayInterval } from '../types/stock.js';
@@ -12,6 +18,10 @@ const VALID_INTERVALS: IntradayInterval[] = ['1min', '5min', '15min', '30min', '
 /**
  * GET /api/stock/:symbol/daily
  * Fetch daily OHLCV data for a stock symbol
+ * Query params (optional):
+ *   - from: Start date (YYYY-MM-DD or ISO string)
+ *   - to: End date (YYYY-MM-DD or ISO string)
+ *   - full: Request full historical data (true/false, default: false)
  */
 router.get(
   '/:symbol/daily',
@@ -19,6 +29,9 @@ router.get(
   async (req: Request, res: Response): Promise<void> => {
     try {
       const symbol = req.params.symbol.toUpperCase();
+      const fromDate = req.query.from as string | undefined;
+      const toDate = req.query.to as string | undefined;
+      const requestFull = req.query.full === 'true';
 
       // Validate symbol format (basic validation)
       if (!symbol || symbol.length > 10 || !/^[A-Z]+$/.test(symbol)) {
@@ -33,27 +46,39 @@ router.get(
       const cachedData = cache.get<OHLCVData[]>(symbol);
       if (cachedData) {
         console.log(`Cache hit for daily data: ${symbol}`);
+        
+        // Apply date range filter if requested
+        const filteredData = filterDataByDateRange(cachedData, fromDate, toDate);
+        const metadata = getDataRangeMetadata(cachedData);
+        
         res.json({
           symbol,
           interval: 'daily',
-          data: cachedData,
+          data: filteredData,
           cached: true,
+          metadata,
         });
         return;
       }
 
       // Fetch from Alpha Vantage API
-      console.log(`Fetching daily data from API: ${symbol}`);
-      const data = await fetchDailyData(symbol);
+      // Use fetchHistoricalData if full data is requested, otherwise use fetchDailyData
+      console.log(`Fetching ${requestFull ? 'full historical' : 'recent'} daily data from API: ${symbol}`);
+      const data = requestFull ? await fetchHistoricalData(symbol) : await fetchDailyData(symbol);
 
       // Store in cache
       cache.set(symbol, data);
 
+      // Apply date range filter if requested
+      const filteredData = filterDataByDateRange(data, fromDate, toDate);
+      const metadata = getDataRangeMetadata(data);
+
       res.json({
         symbol,
         interval: 'daily',
-        data,
+        data: filteredData,
         cached: false,
+        metadata,
       });
     } catch (error: unknown) {
       console.error('Error fetching daily data:', error);
