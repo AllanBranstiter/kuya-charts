@@ -1,0 +1,778 @@
+[
+  {
+    "symbol": "AAPL",
+    "name": "Apple Inc.",
+    "sector": "Technology",
+    "market_cap": 3000000000000,
+    "exchange": "NASDAQ",
+    "currency": "USD"
+  },
+  {
+    "symbol": "MSFT",
+    "name": "Microsoft Corporation",
+    "sector": "Technology",
+    "market_cap": 2800000000000,
+    "exchange": "NASDAQ",
+    "currency": "USD"
+  },
+  {
+    "symbol": "GOOGL",
+    "name": "Alphabet Inc.",
+    "sector": "Technology",
+    "market_cap": 1700000000000,
+    "exchange": "NASDAQ",
+    "currency": "USD"
+  },
+  {
+    "symbol": "AMZN",
+    "name": "Amazon.com Inc.",
+    "sector": "Consumer Cyclical",
+    "market_cap": 1500000000000,
+    "exchange": "NASDAQ",
+    "currency": "USD"
+  },
+  {
+    "symbol": "NVDA",
+    "name": "NVIDIA Corporation",
+    "sector": "Technology",
+    "market_cap": 1200000000000,
+    "exchange": "NASDAQ",
+    "currency": "USD"
+  },
+  {
+    "symbol": "META",
+    "name": "Meta Platforms Inc.",
+    "sector": "Technology",
+    "market_cap": 900000000000,
+    "exchange": "NASDAQ",
+    "currency": "USD"
+  },
+  {
+    "symbol": "TSLA",
+    "name": "Tesla Inc.",
+    "sector": "Consumer Cyclical",
+    "market_cap": 800000000000,
+    "exchange": "NASDAQ",
+    "currency": "USD"
+  },
+  {
+    "symbol": "BRK.B",
+    "name": "Berkshire Hathaway Inc.",
+    "sector": "Financial Services",
+    "market_cap": 780000000000,
+    "exchange": "NYSE",
+    "currency": "USD"
+  },
+  {
+    "symbol": "JPM",
+    "name": "JPMorgan Chase & Co.",
+    "sector": "Financial Services",
+    "market_cap": 520000000000,
+    "exchange": "NYSE",
+    "currency": "USD"
+  },
+  {
+    "symbol": "V",
+    "name": "Visa Inc.",
+    "sector": "Financial Services",
+    "market_cap": 500000000000,
+    "exchange": "NYSE",
+    "currency": "USD"
+  },
+  {
+    "symbol": "JNJ",
+    "name": "Johnson & Johnson",
+    "sector": "Healthcare",
+    "market_cap": 420000000000,
+    "exchange": "NYSE",
+    "currency": "USD"
+  },
+  {
+    "symbol": "WMT",
+    "name": "Walmart Inc.",
+    "sector": "Consumer Defensive",
+    "market_cap": 410000000000,
+    "exchange": "NYSE",
+    "currency": "USD"
+  },
+  {
+    "symbol": "PG",
+    "name": "Procter & Gamble Co.",
+    "sector": "Consumer Defensive",
+    "market_cap": 380000000000,
+    "exchange": "NYSE",
+    "currency": "USD"
+  },
+  {
+    "symbol": "MA",
+    "name": "Mastercard Inc.",
+    "sector": "Financial Services",
+    "market_cap": 370000000000,
+    "exchange": "NYSE",
+    "currency": "USD"
+  },
+  {
+    "symbol": "HD",
+    "name": "Home Depot Inc.",
+    "sector": "Consumer Cyclical",
+    "market_cap": 360000000000,
+    "exchange": "NYSE",
+    "currency": "USD"
+  },
+  {
+    "symbol": "UNH",
+    "name": "UnitedHealth Group Inc.",
+    "sector": "Healthcare",
+    "market_cap": 480000000000,
+    "exchange": "NYSE",
+    "currency": "USD"
+  },
+  {
+    "symbol": "BAC",
+    "name": "Bank of America Corp.",
+    "sector": "Financial Services",
+    "market_cap": 300000000000,
+    "exchange": "NYSE",
+    "currency": "USD"
+  },
+  {
+    "symbol": "XOM",
+    "name": "Exxon Mobil Corporation",
+    "sector": "Energy",
+    "market_cap": 440000000000,
+    "exchange": "NYSE",
+    "currency": "USD"
+  },
+  {
+    "symbol": "CVX",
+    "name": "Chevron Corporation",
+    "sector": "Energy",
+    "market_cap": 290000000000,
+    "exchange": "NYSE",
+    "currency": "USD"
+  },
+  {
+    "symbol": "COST",
+    "name": "Costco Wholesale Corporation",
+    "sector": "Consumer Defensive",
+    "market_cap": 320000000000,
+    "exchange": "NASDAQ",
+    "currency": "USD"
+  },
+  {
+    "symbol": "ABBV",
+    "name": "AbbVie Inc.",
+    "sector": "Healthcare",
+    "market_cap": 280000000000,
+    "exchange": "NYSE",
+    "currency": "USD"
+  },
+  {
+    "symbol": "PEP",
+    "name": "PepsiCo Inc.",
+    "sector": "Consumer Defensive",
+    "market_cap": 240000000000,
+    "exchange": "NASDAQ",
+    "currency": "USD"
+  },
+  {
+    "symbol": "KO",
+    "name": "Coca-Cola Company",
+    "sector": "Consumer Defensive",
+    "market_cap": 260000000000,
+    "exchange": "NYSE",
+    "currency": "USD"
+  },
+  {
+    "symbol": "AVGO",
+    "name": "Broadcom Inc.",
+    "sector": "Technology",
+    "market_cap": 580000000000,
+    "exchange": "NASDAQ",
+    "currency": "USD"
+  },
+  {
+    "symbol": "ORCL",
+    "name": "Oracle Corporation",
+    "sector": "Technology",
+    "market_cap": 280000000000,
+    "exchange": "NYSE",
+    "currency": "USD"
+  },
+  {
+    "symbol": "CSCO",
+    "name": "Cisco Systems Inc.",
+    "sector": "Technology",
+    "market_cap": 210000000000,
+    "exchange": "NASDAQ",
+    "currency": "USD"
+  },
+  {
+    "symbol": "ADBE",
+    "name": "Adobe Inc.",
+    "sector": "Technology",
+    "market_cap": 240000000000,
+    "exchange": "NASDAQ",
+    "currency": "USD"
+  },
+  {
+    "symbol": "CRM",
+    "name": "Salesforce Inc.",
+    "sector": "Technology",
+    "market_cap": 230000000000,
+    "exchange": "NYSE",
+    "currency": "USD"
+  },
+  {
+    "symbol": "NFLX",
+    "name": "Netflix Inc.",
+    "sector": "Communication Services",
+    "market_cap": 220000000000,
+    "exchange": "NASDAQ",
+    "currency": "USD"
+  },
+  {
+    "symbol": "DIS",
+    "name": "Walt Disney Company",
+    "sector": "Communication Services",
+    "market_cap": 180000000000,
+    "exchange": "NYSE",
+    "currency": "USD"
+  },
+  {
+    "symbol": "CMCSA",
+    "name": "Comcast Corporation",
+    "sector": "Communication Services",
+    "market_cap": 160000000000,
+    "exchange": "NASDAQ",
+    "currency": "USD"
+  },
+  {
+    "symbol": "NKE",
+    "name": "Nike Inc.",
+    "sector": "Consumer Cyclical",
+    "market_cap": 150000000000,
+    "exchange": "NYSE",
+    "currency": "USD"
+  },
+  {
+    "symbol": "MCD",
+    "name": "McDonald's Corporation",
+    "sector": "Consumer Cyclical",
+    "market_cap": 200000000000,
+    "exchange": "NYSE",
+    "currency": "USD"
+  },
+  {
+    "symbol": "INTC",
+    "name": "Intel Corporation",
+    "sector": "Technology",
+    "market_cap": 120000000000,
+    "exchange": "NASDAQ",
+    "currency": "USD"
+  },
+  {
+    "symbol": "AMD",
+    "name": "Advanced Micro Devices Inc.",
+    "sector": "Technology",
+    "market_cap": 200000000000,
+    "exchange": "NASDAQ",
+    "currency": "USD"
+  },
+  {
+    "symbol": "QCOM",
+    "name": "QUALCOMM Inc.",
+    "sector": "Technology",
+    "market_cap": 180000000000,
+    "exchange": "NASDAQ",
+    "currency": "USD"
+  },
+  {
+    "symbol": "TMO",
+    "name": "Thermo Fisher Scientific Inc.",
+    "sector": "Healthcare",
+    "market_cap": 210000000000,
+    "exchange": "NYSE",
+    "currency": "USD"
+  },
+  {
+    "symbol": "ABT",
+    "name": "Abbott Laboratories",
+    "sector": "Healthcare",
+    "market_cap": 190000000000,
+    "exchange": "NYSE",
+    "currency": "USD"
+  },
+  {
+    "symbol": "PFE",
+    "name": "Pfizer Inc.",
+    "sector": "Healthcare",
+    "market_cap": 160000000000,
+    "exchange": "NYSE",
+    "currency": "USD"
+  },
+  {
+    "symbol": "MRK",
+    "name": "Merck & Co. Inc.",
+    "sector": "Healthcare",
+    "market_cap": 270000000000,
+    "exchange": "NYSE",
+    "currency": "USD"
+  },
+  {
+    "symbol": "LLY",
+    "name": "Eli Lilly and Company",
+    "sector": "Healthcare",
+    "market_cap": 560000000000,
+    "exchange": "NYSE",
+    "currency": "USD"
+  },
+  {
+    "symbol": "BMY",
+    "name": "Bristol-Myers Squibb Company",
+    "sector": "Healthcare",
+    "market_cap": 110000000000,
+    "exchange": "NYSE",
+    "currency": "USD"
+  },
+  {
+    "symbol": "DHR",
+    "name": "Danaher Corporation",
+    "sector": "Healthcare",
+    "market_cap": 180000000000,
+    "exchange": "NYSE",
+    "currency": "USD"
+  },
+  {
+    "symbol": "WFC",
+    "name": "Wells Fargo & Company",
+    "sector": "Financial Services",
+    "market_cap": 180000000000,
+    "exchange": "NYSE",
+    "currency": "USD"
+  },
+  {
+    "symbol": "MS",
+    "name": "Morgan Stanley",
+    "sector": "Financial Services",
+    "market_cap": 150000000000,
+    "exchange": "NYSE",
+    "currency": "USD"
+  },
+  {
+    "symbol": "GS",
+    "name": "Goldman Sachs Group Inc.",
+    "sector": "Financial Services",
+    "market_cap": 130000000000,
+    "exchange": "NYSE",
+    "currency": "USD"
+  },
+  {
+    "symbol": "C",
+    "name": "Citigroup Inc.",
+    "sector": "Financial Services",
+    "market_cap": 110000000000,
+    "exchange": "NYSE",
+    "currency": "USD"
+  },
+  {
+    "symbol": "AXP",
+    "name": "American Express Company",
+    "sector": "Financial Services",
+    "market_cap": 150000000000,
+    "exchange": "NYSE",
+    "currency": "USD"
+  },
+  {
+    "symbol": "BLK",
+    "name": "BlackRock Inc.",
+    "sector": "Financial Services",
+    "market_cap": 120000000000,
+    "exchange": "NYSE",
+    "currency": "USD"
+  },
+  {
+    "symbol": "SPGI",
+    "name": "S&P Global Inc.",
+    "sector": "Financial Services",
+    "market_cap": 130000000000,
+    "exchange": "NYSE",
+    "currency": "USD"
+  },
+  {
+    "symbol": "NEE",
+    "name": "NextEra Energy Inc.",
+    "sector": "Utilities",
+    "market_cap": 140000000000,
+    "exchange": "NYSE",
+    "currency": "USD"
+  },
+  {
+    "symbol": "DUK",
+    "name": "Duke Energy Corporation",
+    "sector": "Utilities",
+    "market_cap": 75000000000,
+    "exchange": "NYSE",
+    "currency": "USD"
+  },
+  {
+    "symbol": "SO",
+    "name": "Southern Company",
+    "sector": "Utilities",
+    "market_cap": 85000000000,
+    "exchange": "NYSE",
+    "currency": "USD"
+  },
+  {
+    "symbol": "CAT",
+    "name": "Caterpillar Inc.",
+    "sector": "Industrials",
+    "market_cap": 150000000000,
+    "exchange": "NYSE",
+    "currency": "USD"
+  },
+  {
+    "symbol": "BA",
+    "name": "Boeing Company",
+    "sector": "Industrials",
+    "market_cap": 120000000000,
+    "exchange": "NYSE",
+    "currency": "USD"
+  },
+  {
+    "symbol": "HON",
+    "name": "Honeywell International Inc.",
+    "sector": "Industrials",
+    "market_cap": 130000000000,
+    "exchange": "NASDAQ",
+    "currency": "USD"
+  },
+  {
+    "symbol": "UPS",
+    "name": "United Parcel Service Inc.",
+    "sector": "Industrials",
+    "market_cap": 110000000000,
+    "exchange": "NYSE",
+    "currency": "USD"
+  },
+  {
+    "symbol": "RTX",
+    "name": "RTX Corporation",
+    "sector": "Industrials",
+    "market_cap": 140000000000,
+    "exchange": "NYSE",
+    "currency": "USD"
+  },
+  {
+    "symbol": "LMT",
+    "name": "Lockheed Martin Corporation",
+    "sector": "Industrials",
+    "market_cap": 110000000000,
+    "exchange": "NYSE",
+    "currency": "USD"
+  },
+  {
+    "symbol": "GE",
+    "name": "General Electric Company",
+    "sector": "Industrials",
+    "market_cap": 140000000000,
+    "exchange": "NYSE",
+    "currency": "USD"
+  },
+  {
+    "symbol": "LOW",
+    "name": "Lowe's Companies Inc.",
+    "sector": "Consumer Cyclical",
+    "market_cap": 130000000000,
+    "exchange": "NYSE",
+    "currency": "USD"
+  },
+  {
+    "symbol": "TGT",
+    "name": "Target Corporation",
+    "sector": "Consumer Defensive",
+    "market_cap": 70000000000,
+    "exchange": "NYSE",
+    "currency": "USD"
+  },
+  {
+    "symbol": "SBUX",
+    "name": "Starbucks Corporation",
+    "sector": "Consumer Cyclical",
+    "market_cap": 100000000000,
+    "exchange": "NASDAQ",
+    "currency": "USD"
+  },
+  {
+    "symbol": "TJX",
+    "name": "TJX Companies Inc.",
+    "sector": "Consumer Cyclical",
+    "market_cap": 110000000000,
+    "exchange": "NYSE",
+    "currency": "USD"
+  },
+  {
+    "symbol": "PM",
+    "name": "Philip Morris International Inc.",
+    "sector": "Consumer Defensive",
+    "market_cap": 140000000000,
+    "exchange": "NYSE",
+    "currency": "USD"
+  },
+  {
+    "symbol": "MO",
+    "name": "Altria Group Inc.",
+    "sector": "Consumer Defensive",
+    "market_cap": 80000000000,
+    "exchange": "NYSE",
+    "currency": "USD"
+  },
+  {
+    "symbol": "UNP",
+    "name": "Union Pacific Corporation",
+    "sector": "Industrials",
+    "market_cap": 140000000000,
+    "exchange": "NYSE",
+    "currency": "USD"
+  },
+  {
+    "symbol": "COP",
+    "name": "ConocoPhillips",
+    "sector": "Energy",
+    "market_cap": 130000000000,
+    "exchange": "NYSE",
+    "currency": "USD"
+  },
+  {
+    "symbol": "SLB",
+    "name": "Schlumberger N.V.",
+    "sector": "Energy",
+    "market_cap": 65000000000,
+    "exchange": "NYSE",
+    "currency": "USD"
+  },
+  {
+    "symbol": "EOG",
+    "name": "EOG Resources Inc.",
+    "sector": "Energy",
+    "market_cap": 70000000000,
+    "exchange": "NYSE",
+    "currency": "USD"
+  },
+  {
+    "symbol": "PXD",
+    "name": "Pioneer Natural Resources Company",
+    "sector": "Energy",
+    "market_cap": 60000000000,
+    "exchange": "NYSE",
+    "currency": "USD"
+  },
+  {
+    "symbol": "AMT",
+    "name": "American Tower Corporation",
+    "sector": "Real Estate",
+    "market_cap": 95000000000,
+    "exchange": "NYSE",
+    "currency": "USD"
+  },
+  {
+    "symbol": "PLD",
+    "name": "Prologis Inc.",
+    "sector": "Real Estate",
+    "market_cap": 110000000000,
+    "exchange": "NYSE",
+    "currency": "USD"
+  },
+  {
+    "symbol": "CCI",
+    "name": "Crown Castle Inc.",
+    "sector": "Real Estate",
+    "market_cap": 48000000000,
+    "exchange": "NYSE",
+    "currency": "USD"
+  },
+  {
+    "symbol": "EQIX",
+    "name": "Equinix Inc.",
+    "sector": "Real Estate",
+    "market_cap": 75000000000,
+    "exchange": "NASDAQ",
+    "currency": "USD"
+  },
+  {
+    "symbol": "MMM",
+    "name": "3M Company",
+    "sector": "Industrials",
+    "market_cap": 55000000000,
+    "exchange": "NYSE",
+    "currency": "USD"
+  },
+  {
+    "symbol": "IBM",
+    "name": "International Business Machines Corporation",
+    "sector": "Technology",
+    "market_cap": 160000000000,
+    "exchange": "NYSE",
+    "currency": "USD"
+  },
+  {
+    "symbol": "NOW",
+    "name": "ServiceNow Inc.",
+    "sector": "Technology",
+    "market_cap": 140000000000,
+    "exchange": "NYSE",
+    "currency": "USD"
+  },
+  {
+    "symbol": "INTU",
+    "name": "Intuit Inc.",
+    "sector": "Technology",
+    "market_cap": 130000000000,
+    "exchange": "NASDAQ",
+    "currency": "USD"
+  },
+  {
+    "symbol": "ISRG",
+    "name": "Intuitive Surgical Inc.",
+    "sector": "Healthcare",
+    "market_cap": 120000000000,
+    "exchange": "NASDAQ",
+    "currency": "USD"
+  },
+  {
+    "symbol": "AMGN",
+    "name": "Amgen Inc.",
+    "sector": "Healthcare",
+    "market_cap": 150000000000,
+    "exchange": "NASDAQ",
+    "currency": "USD"
+  },
+  {
+    "symbol": "GILD",
+    "name": "Gilead Sciences Inc.",
+    "sector": "Healthcare",
+    "market_cap": 100000000000,
+    "exchange": "NASDAQ",
+    "currency": "USD"
+  },
+  {
+    "symbol": "VRTX",
+    "name": "Vertex Pharmaceuticals Inc.",
+    "sector": "Healthcare",
+    "market_cap": 110000000000,
+    "exchange": "NASDAQ",
+    "currency": "USD"
+  },
+  {
+    "symbol": "REGN",
+    "name": "Regeneron Pharmaceuticals Inc.",
+    "sector": "Healthcare",
+    "market_cap": 95000000000,
+    "exchange": "NASDAQ",
+    "currency": "USD"
+  },
+  {
+    "symbol": "MDLZ",
+    "name": "Mondelez International Inc.",
+    "sector": "Consumer Defensive",
+    "market_cap": 90000000000,
+    "exchange": "NASDAQ",
+    "currency": "USD"
+  },
+  {
+    "symbol": "ADP",
+    "name": "Automatic Data Processing Inc.",
+    "sector": "Industrials",
+    "market_cap": 100000000000,
+    "exchange": "NASDAQ",
+    "currency": "USD"
+  },
+  {
+    "symbol": "TXN",
+    "name": "Texas Instruments Inc.",
+    "sector": "Technology",
+    "market_cap": 160000000000,
+    "exchange": "NASDAQ",
+    "currency": "USD"
+  },
+  {
+    "symbol": "AMAT",
+    "name": "Applied Materials Inc.",
+    "sector": "Technology",
+    "market_cap": 130000000000,
+    "exchange": "NASDAQ",
+    "currency": "USD"
+  },
+  {
+    "symbol": "LRCX",
+    "name": "Lam Research Corporation",
+    "sector": "Technology",
+    "market_cap": 95000000000,
+    "exchange": "NASDAQ",
+    "currency": "USD"
+  },
+  {
+    "symbol": "MU",
+    "name": "Micron Technology Inc.",
+    "sector": "Technology",
+    "market_cap": 100000000000,
+    "exchange": "NASDAQ",
+    "currency": "USD"
+  },
+  {
+    "symbol": "DE",
+    "name": "Deere & Company",
+    "sector": "Industrials",
+    "market_cap": 110000000000,
+    "exchange": "NYSE",
+    "currency": "USD"
+  },
+  {
+    "symbol": "BDX",
+    "name": "Becton Dickinson and Company",
+    "sector": "Healthcare",
+    "market_cap": 70000000000,
+    "exchange": "NYSE",
+    "currency": "USD"
+  },
+  {
+    "symbol": "CI",
+    "name": "Cigna Group",
+    "sector": "Healthcare",
+    "market_cap": 95000000000,
+    "exchange": "NYSE",
+    "currency": "USD"
+  },
+  {
+    "symbol": "CVS",
+    "name": "CVS Health Corporation",
+    "sector": "Healthcare",
+    "market_cap": 85000000000,
+    "exchange": "NYSE",
+    "currency": "USD"
+  },
+  {
+    "symbol": "ELV",
+    "name": "Elevance Health Inc.",
+    "sector": "Healthcare",
+    "market_cap": 110000000000,
+    "exchange": "NYSE",
+    "currency": "USD"
+  },
+  {
+    "symbol": "ZTS",
+    "name": "Zoetis Inc.",
+    "sector": "Healthcare",
+    "market_cap": 80000000000,
+    "exchange": "NYSE",
+    "currency": "USD"
+  },
+  {
+    "symbol": "SYK",
+    "name": "Stryker Corporation",
+    "sector": "Healthcare",
+    "market_cap": 110000000000,
+    "exchange": "NYSE",
+    "currency": "USD"
+  }
+]
