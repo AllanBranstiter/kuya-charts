@@ -4,9 +4,9 @@
 
 ## What Is This Project?
 
-A professional stock charting web application built with React + Express that displays real-time stock data with technical indicators using the Alpha Vantage API.
+A professional stock charting web application built with React + Express that displays real-time stock data with technical indicators, user accounts, WebSocket updates, and advanced charting features.
 
-**Status:** Phase 3 Complete - Stock Screener & Technical Filters (February 2026)
+**Status:** Phase 5 Complete - Real-Time Updates & Advanced Features (February 2026)
 
 ---
 
@@ -15,10 +15,14 @@ A professional stock charting web application built with React + Express that di
 | Layer | Technologies |
 |-------|-------------|
 | Frontend | React 18, TypeScript, Vite, TradingView Lightweight Charts, Tailwind CSS, React Router |
-| Backend | Node.js, Express, TypeScript |
+| Backend | Node.js 20+, Express, TypeScript, WebSocket (ws) |
 | Database | PostgreSQL 15+, pg (node-postgres) |
-| Data | Alpha Vantage API, in-memory cache (5-min TTL) |
+| Cache | Redis (optional, graceful degradation) |
+| Data | Alpha Vantage API, Redis cache (1-hour TTL) |
+| Real-Time | WebSocket server for live price updates |
+| Auth | JWT tokens, bcrypt password hashing |
 | Indicators | technicalindicators npm package |
+| Deployment | Railway (PostgreSQL, Redis, dual services) |
 
 ---
 
@@ -698,26 +702,318 @@ curl http://localhost:5001/api/stock/AAPL/daily
 
 ---
 
-## Phase 4 Roadmap (Future Enhancements)
+## Phase 4 Features (Implemented)
 
-**Real-Time Data Updates:**
-- WebSocket connection for live price updates
-- Auto-refresh mode with configurable intervals
-- Price alerts and notifications
-- Streaming intraday data updates
-- Real-time metrics calculation
+### Redis Caching Layer
 
-**Drawing Tools & Annotations:**
-- Trendlines, horizontal/vertical lines
-- Fibonacci retracements
-- Text annotations, shapes, arrows
-- Save/load drawings with localStorage
-- Export charts with annotations as PNG/SVG
+**Overview:** Production-grade caching system with Redis for improved performance and reduced API calls.
+
+**Features:**
+1. **Redis Integration** - ioredis client with connection pooling
+2. **1-Hour Cache TTL** - Balance freshness vs API rate limits
+3. **Graceful Degradation** - App continues without Redis if unavailable
+4. **Cache Invalidation** - Manual and automatic cache clearing
+5. **Connection Resilience** - Auto-reconnect with exponential backoff
+
+**Implementation:**
+- [`backend/src/utils/redisClient.ts`](./backend/src/utils/redisClient.ts) - Redis client with error handling
+- [`backend/src/services/alphaVantageService.ts`](./backend/src/services/alphaVantageService.ts) - Updated with Redis caching
+- Cache key format: `stock:{symbol}:{timeframe}:{interval?}`
+
+**Configuration:**
+```bash
+REDIS_URL=redis://localhost:6379  # Local development
+# Railway provides Redis URL automatically in production
+```
+
+### Chart Performance Optimization
+
+**Data Chunking:**
+- Large datasets split into 500-point chunks
+- Lazy loading as user scrolls/zooms
+- Prevents browser memory issues with years of data
+
+**Efficient Re-rendering:**
+- Memoized calculations with React.memo
+- Debounced indicator updates (300ms)
+- Only recalculate visible timeframe data
+
+**Chart Interaction:**
+- Hardware-accelerated canvas rendering
+- Optimized mouse tracking (throttled to 60fps)
+- Efficient series updates (patch vs full replace)
+
+---
+
+## Phase 5 Features (Implemented)
+
+### User Accounts & Authentication
+
+**Overview:** Complete JWT-based authentication system with secure password storage and session management.
+
+**Features:**
+1. **User Registration** - Email, username, password validation
+2. **Secure Login** - bcrypt password hashing (10 salt rounds), 24-hour JWT tokens
+3. **Session Management** - HTTP-only cookie pattern, auto token validation
+4. **Protected Routes** - Middleware for authenticated endpoints
+
+**Database Schema (Phase 5):**
+
+#### `users` Table
+```sql
+CREATE TABLE users (
+  id SERIAL PRIMARY KEY,
+  email VARCHAR(255) UNIQUE NOT NULL,
+  username VARCHAR(50) UNIQUE NOT NULL,
+  password_hash VARCHAR(255) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+```
+
+#### `user_watchlists` Table
+```sql
+CREATE TABLE user_watchlists (
+  id SERIAL PRIMARY KEY,
+  user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  stock_symbol VARCHAR(10) NOT NULL,
+  added_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  UNIQUE(user_id, stock_symbol)
+);
+```
+
+#### `user_chart_configs` Table
+```sql
+CREATE TABLE user_chart_configs (
+  id SERIAL PRIMARY KEY,
+  user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  config_name VARCHAR(100) NOT NULL,
+  config_data JSONB NOT NULL,  -- Full indicator configuration
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+```
+
+#### `user_preferences` Table
+```sql
+CREATE TABLE user_preferences (
+  user_id INTEGER PRIMARY KEY REFERENCES users(id) ON DELETE CASCADE,
+  theme VARCHAR(20) DEFAULT 'light',
+  default_timeframe VARCHAR(20) DEFAULT 'daily',
+  preferences_data JSONB,  -- Additional settings
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+```
+
+**Backend Components:**
+- [`backend/src/types/auth.ts`](./backend/src/types/auth.ts) - Auth type definitions
+- [`backend/src/utils/auth.ts`](./backend/src/utils/auth.ts) - Password hashing, JWT generation/verification
+- [`backend/src/middleware/auth.ts`](./backend/src/middleware/auth.ts) - JWT authentication middleware
+- [`backend/src/services/userService.ts`](./backend/src/services/userService.ts) - User CRUD operations
+- [`backend/src/routes/authRoutes.ts`](./backend/src/routes/authRoutes.ts) - POST /register, /login, GET /me
+- [`backend/src/services/watchlistService.ts`](./backend/src/services/watchlistService.ts) - Watchlist persistence
+- [`backend/src/services/chartConfigService.ts`](./backend/src/services/chartConfigService.ts) - Chart config storage
+
+**Frontend Components:**
+- [`frontend/src/contexts/AuthContext.tsx`](./frontend/src/contexts/AuthContext.tsx) - React Context for auth state
+- [`frontend/src/services/authApi.ts`](./frontend/src/services/authApi.ts) - Auth API client
+- [`frontend/src/components/Auth/Login.tsx`](./frontend/src/components/Auth/Login.tsx) - Login modal
+- [`frontend/src/components/Auth/Register.tsx`](./frontend/src/components/Auth/Register.tsx) - Registration modal
+- [`frontend/src/components/AuthButton.tsx`](./frontend/src/components/AuthButton.tsx) - Login/logout UI
+
+**Data Sync Strategy:**
+- **Authenticated Users:** Watchlists and configs sync to database
+- **Anonymous Users:** localStorage fallback for local persistence
+- **Login Merge:** Local items merged with server data on authentication
+
+### WebSocket Real-Time Updates
+
+**Overview:** Live price updates via WebSocket connection with simulated market data (ready for production provider integration).
+
+**Features:**
+1. **WebSocket Server** - ws library, singleton pattern, path: `/ws`
+2. **Symbol Subscriptions** - Clients subscribe/unsubscribe to specific symbols
+3. **Heartbeat Monitoring** - Ping/pong every 30s, auto-cleanup dead connections
+4. **Price Simulation** - Geometric Brownian motion for realistic price movements (4-second updates)
+5. **Auto-Reconnect** - Exponential backoff (1s → 30s max) on frontend
+
+**WebSocket Protocol:**
+```typescript
+// Client → Server
+{"type": "subscribe", "symbol": "AAPL"}
+{"type": "unsubscribe", "symbol": "AAPL"}
+
+// Server → Client
+{
+  "type": "price_update",
+  "symbol": "AAPL",
+  "data": {
+    "price": 185.50,
+    "change": 2.30,
+    "changePercent": 1.25,
+    "volume": 50000000,
+    "timestamp": "2026-02-07T10:30:00Z",
+    "open": 183.20,
+    "high": 186.00,
+    "low": 182.50
+  }
+}
+```
+
+**Backend Components:**
+- [`backend/src/services/websocketService.ts`](./backend/src/services/websocketService.ts) - WebSocket server with subscription management
+- [`backend/src/services/realtimePriceService.ts`](./backend/src/services/realtimePriceService.ts) - Price simulation engine
+
+**Frontend Components:**
+- [`frontend/src/services/websocketService.ts`](./frontend/src/services/websocketService.ts) - WebSocket client singleton
+- [`frontend/src/hooks/useWebSocket.ts`](./frontend/src/hooks/useWebSocket.ts) - React hooks (useRealtimePrice, useRealtimePrices)
+- [`frontend/src/components/ConnectionStatusIndicator.tsx`](./frontend/src/components/ConnectionStatusIndicator.tsx) - Connection status UI
+
+**Production Integration Path:**
+```typescript
+// Replace simulation with real provider (Polygon.io, Finnhub, IEX Cloud)
+// See detailed integration guide in realtimePriceService.ts comments
+```
+
+### Drawing Tools & Annotations
+
+**Overview:** Canvas-based drawing system for technical analysis with persistence.
+
+**Drawing Types:**
+1. **Trendlines** - Click two points to draw trend channel
+2. **Horizontal Lines** - Support/resistance levels
+3. **Vertical Lines** - Event markers, earnings dates
+4. **Text Annotations** - Notes, alerts, info boxes with 3 styles
+
+**Features:**
+- **Color Customization** - Per-drawing color picker
+- **Line Styles** - Solid, dashed, dotted (1-5px width)
+- **Font Sizes** - 10px, 12px, 14px, 16px, 18px
+- **Hit Testing** - Click near lines to select/delete (10px tolerance)
+- **Persistence** - Saved in chart config JSONB data
+
+**Implementation:**
+- [`frontend/src/types/drawings.ts`](./frontend/src/types/drawings.ts) - Drawing type definitions
+- [`frontend/src/utils/drawingManager.ts`](./frontend/src/utils/drawingManager.ts) - Canvas rendering & hit detection
+- [`frontend/src/components/DrawingTools/DrawingToolPalette.tsx`](./frontend/src/components/DrawingTools/DrawingToolPalette.tsx) - Tool selector UI
+- [`frontend/src/components/DrawingTools/AnnotationEditor.tsx`](./frontend/src/components/DrawingTools/AnnotationEditor.tsx) - Text annotation modal
+
+**Coordinate System:**
+```typescript
+// Price coordinates (chart space) ↔ Canvas coordinates (pixel space)
+// DrawingManager handles conversion automatically
+```
+
+### Multi-Chart Layout
+
+**Overview:** View multiple charts simultaneously with independent configurations.
+
+**Layout Options:**
+1. **1x1 (Single)** - Full-screen single chart (default)
+2. **1x2 (Vertical)** - Two charts stacked vertically
+3. **2x2 (Quad)** - Four charts in grid layout
+
+**Features:**
+- **Independent Symbols** - Each pane can track different stock
+- **Independent Timeframes** - Mix daily, intraday, weekly
+- **Independent Indicators** - Different indicator sets per pane
+- **Shared Real-Time Updates** - WebSocket subscriptions per active symbol
+- **Responsive Sizing** - CSS Grid with automatic height distribution
+
+**Implementation:**
+- [`frontend/src/types/layout.ts`](./frontend/src/types/layout.ts) - Layout type definitions
+- [`frontend/src/components/MultiChartContainer.tsx`](./frontend/src/components/MultiChartContainer.tsx) - Grid layout wrapper
+- [`frontend/src/components/ChartPane.tsx`](./frontend/src/components/ChartPane.tsx) - Individual chart pane
+- [`frontend/src/components/LayoutSwitcher.tsx`](./frontend/src/components/LayoutSwitcher.tsx) - Layout selector toolbar
+
+### Symbol Comparison
+
+**Overview:** Compare multiple stocks on same chart with three normalization modes.
+
+**Comparison Modes:**
+1. **Absolute Price** - Show actual prices on separate scales
+2. **Percentage Change** - Normalize to % change from start (relative performance)
+3. **Normalized (0-100)** - Scale all series to 0-100 range for visual alignment
+
+**Features:**
+- **Up to 5 Symbols** - Primary + 4 comparison symbols
+- **Color Coding** - Distinct colors per symbol (customizable)
+- **Time Alignment** - Interpolate missing data points across symbols
+- **Interactive Legend** - Toggle visibility per symbol
+- **Synchronized Crosshair** - Hover shows all symbol values at same time
+
+**Data Alignment Strategy:**
+```typescript
+// 1. Align all series by timestamp (find common time range)
+// 2. Interpolate missing data points (linear interpolation)
+// 3. Apply normalization mode transformation
+// 4. Render on same chart with shared time scale
+```
+
+**Implementation:**
+- [`frontend/src/types/comparison.ts`](./frontend/src/types/comparison.ts) - Comparison types
+- [`frontend/src/utils/comparisonCalculations.ts`](./frontend/src/utils/comparisonCalculations.ts) - Data transformation logic
+- [`frontend/src/components/SymbolComparisonPanel.tsx`](./frontend/src/components/SymbolComparisonPanel.tsx) - Symbol management UI
+- [`frontend/src/components/ComparisonLegend.tsx`](./frontend/src/components/ComparisonLegend.tsx) - Interactive legend
+
+---
+
+## Railway Deployment
+
+**Platform:** Railway (https://railway.app)
+
+**Architecture:** Dual-service deployment
+- **Backend Service:** Node.js 20+, Express API, WebSocket server
+- **Frontend Service:** Static site (Vite build)
+- **PostgreSQL:** Railway-provided database
+- **Redis:** Railway-provided cache (optional)
+
+**Configuration Files:**
+- [`railway.json`](./railway.json) - Railway platform configuration
+- [`RAILWAY_DEPLOYMENT.md`](./RAILWAY_DEPLOYMENT.md) - Complete deployment guide (700+ lines)
+- [`backend/.gitignore`](./backend/.gitignore) - Prevent committing secrets
+- [`frontend/.gitignore`](./frontend/.gitignore) - Prevent committing secrets
+- [`scripts/setup-env.js`](./scripts/setup-env.js) - Interactive environment setup
+
+**Environment Variables (Railway):**
+
+Backend Service:
+```bash
+DATABASE_URL=<Railway provides>
+REDIS_URL=<Railway provides>
+JWT_SECRET=<openssl rand -base64 32>
+ALPHA_VANTAGE_API_KEY=<your key>
+FRONTEND_URL=https://your-app.railway.app
+NODE_ENV=production
+```
+
+Frontend Service:
+```bash
+VITE_API_BASE_URL=https://your-backend.railway.app
+VITE_WS_URL=wss://your-backend.railway.app
+VITE_ENV=production
+```
+
+**Deployment Process:**
+1. Connect GitHub repository to Railway
+2. Configure environment variables in Railway dashboard
+3. Push to main branch → automatic deployment
+4. Run database migrations: `npm run migrate`
+5. Seed initial data: `npm run seed && npm run seed:metrics -- --limit 10`
+
+**Known Deployment Issues:**
+- See [`DEPLOYMENT_FIXES.md`](./DEPLOYMENT_FIXES.md) for TypeScript compilation and Node version fixes
+- Ensure Node 20+ specified in `backend/package.json` engines field
+- WebSocket requires wss:// protocol in production (not ws://)
+
+---
+
+## Phase 6 Roadmap (Future Enhancements)
 
 **Advanced Charting:**
-- Multi-symbol comparison on same chart
-- Split-pane layouts (2x2 grid, custom arrangements)
-- Synchronized crosshair across multiple charts
+- Fibonacci retracements and extensions
+- Shapes and arrows for annotations
+- Export charts with annotations as PNG/SVG
 - Chart themes (dark mode, custom color schemes)
 - Additional chart types (Heikin Ashi, Renko, Kagi)
 
@@ -760,4 +1056,4 @@ curl http://localhost:5001/api/stock/AAPL/daily
 ---
 
 **Project Path:** `/Users/allanbranstiter/Documents/GitHub/kuya-charts`
-**Last Updated:** February 6, 2026 - Phase 3 Complete
+**Last Updated:** February 7, 2026 - Phase 5 Complete (Real-Time Updates & Advanced Features)
