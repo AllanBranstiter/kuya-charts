@@ -38,7 +38,6 @@ class RealtimePriceService {
 
   // Configuration
   private readonly UPDATE_INTERVAL_MS = 4000; // 4 seconds
-  private readonly MIN_PRICE_CHANGE_PERCENT = 0.001; // 0.1%
   private readonly MAX_PRICE_CHANGE_PERCENT = 0.02; // 2%
   private readonly DEFAULT_VOLATILITY = 0.015; // 1.5% default daily volatility
 
@@ -101,7 +100,7 @@ class RealtimePriceService {
       });
 
       // Stop updates for unsubscribed symbols
-      this.updateIntervals.forEach((interval, symbol) => {
+      this.updateIntervals.forEach((_interval, symbol) => {
         if (!subscribedSymbols.includes(symbol)) {
           this.stopSymbolUpdates(symbol);
         }
@@ -221,7 +220,6 @@ class RealtimePriceService {
 
     // Generate realistic price movement
     const newPrice = this.simulatePriceMovement(state);
-    const previousPrice = state.currentPrice;
 
     // Update state
     state.currentPrice = newPrice;

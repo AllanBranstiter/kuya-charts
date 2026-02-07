@@ -73,7 +73,6 @@ class WebSocketService {
   // Configuration
   private readonly MAX_SUBSCRIPTIONS_PER_CLIENT = 50;
   private readonly HEARTBEAT_INTERVAL_MS = 30000; // 30 seconds
-  private readonly HEARTBEAT_TIMEOUT_MS = 5000; // 5 seconds
 
   /**
    * Initialize WebSocket server
@@ -400,7 +399,7 @@ class WebSocketService {
     }
 
     // Close all client connections
-    this.clients.forEach((client, ws) => {
+    this.clients.forEach((_client, ws) => {
       try {
         ws.close(1000, 'Server shutting down');
       } catch (error) {
